@@ -1,4 +1,3 @@
-
 -- 
 -- Please see the license.html file included with this distribution for 
 -- attribution and copyright information.
@@ -45,6 +44,7 @@ function refresh()
 			total.setReadOnlyRMC(true);
 			total.setFrame(nil);
 			rankbonus.setValue(rkbn);
+			
 			total.setValue(rkbn + statbonus.getValue() + level.getValue() +
 						   item.getValue() + special.getValue() + misc.getValue());
 		elseif clc==3 then

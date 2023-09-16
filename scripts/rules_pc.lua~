@@ -1,4 +1,3 @@
-
 -- 
 -- Please see the license.html file included with this distribution for 
 -- attribution and copyright information.
@@ -231,6 +230,7 @@ function RealmStatAverage(nodeChar)
 end
 
 -- Miscellaneous Characteristics
+
 function BHT(nodeChar)
 	local nBHT = 0;
 	local nodeCon = nodeChar.getChild("abilities.constitution.temp");
@@ -351,8 +351,8 @@ function TotalDP(nodeChar)
 				nDev = DB.getValue(vStat, "dev", 0);
 				nTemp = DB.getValue(vStat, "temp", 0);
 				nTotalBonus = DB.getValue(vStat, "total", 0);
-				if nDev == 1 or string.lower(OptionsManager.getOption("RC552")) == string.lower(Interface.getString("option_val_on")) then 
- 					nTotalDP = nTotalDP + Rules_Stats.DPs(nTemp, nTotalBonus);
+				if nDev == 1 then
+					nTotalDP = nTotalDP + Rules_Stats.DPs(nTemp, nTotalBonus);
 				end
 			end
 		end
@@ -700,48 +700,6 @@ function SkillUntrainedTotal(nodeChar, sSkillName)
 	local sStats = Rules_Skills.Stats(sSkillName);
 
 	return Rules_PC.CombinedStatBonus(nodeChar, sStats) - 25;
-end
-
-function UpdateLevelBonuses(nodeChar)
-	if nodeChar and nodeChar.getChild("skills") then
-		for _, vCharSkill in pairs(nodeChar.getChild("skills").getChildren()) do
-			if DB.getValue(vCharSkill, "levelbonus.core", "") == "" and DB.getValue(vCharSkill, "levelbonus.rm2", "") == "" and 
-							DB.getValue(vCharSkill, "levelbonus.rmfrp", "") == "" and DB.getValue(vCharSkill, "levelbonus.rmcompanion2", "") == "" then
-				local aMappings = LibraryData.getMappings("skill");
-				for _, vMapping in ipairs(aMappings) do
-					for _, vSkill in pairs(DB.getChildrenGlobal(vMapping)) do
-						if DB.getValue(vSkill, "fullname", "") == DB.getValue(vCharSkill, "fullname", "") then
-							DB.setValue(vCharSkill, "levelbonus.core", "string", DB.getValue(vSkill, "levelbonus.core", ""));
-							DB.setValue(vCharSkill, "levelbonus.rm2", "string", DB.getValue(vSkill, "levelbonus.rm2", ""));
-							DB.setValue(vCharSkill, "levelbonus.rmfrp", "string", DB.getValue(vSkill, "levelbonus.rmfrp", ""));
-							DB.setValue(vCharSkill, "levelbonus.rmcompanion2", "string", DB.getValue(vSkill, "levelbonus.rmcompanion2", ""));
-						end
-					end
-				end
-
-			end
-		end
-	end
-end
-
-function SkillArmorFactor(nodeChar, sSkillName)
-	local nArmorFactor = 1;
-	
-	if sSkillName == "" then
-		return 0;
-	end
-	
-	if nodeChar and sSkillName ~= "" then
-		if nodeChar.getChild("skills") then
-			for _, vSkill in pairs(DB.getChildren(nodeChar, "skills")) do
-				if DB.getValue(vSkill, "name", "") == sSkillName then
-					nArmorFactor = DB.getValue(vSkill, "armorfactor", 1);
-				end				
-			end
-		end
-	end
-	
-	return nArmorFactor;
 end
 
 -- Next Level
