@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root version="3.0">
+  <announcement>Rolemaster Classic BHT Con Bonus</announcement>
+
+  <properties>
+    <name>Feature: RMC BHT Con Bonus</name>
+    <version>1.0</version>
+    <author>Eleazzar</author>
+    <description>Adds BHT Hits Bonus as described in the rules (Con/10) to characters total Hits.</description>
+    <ruleset>
+      <name>RolemasterClassic</name>
+    </ruleset>
+  </properties>
+  
+  <base>
+	  <script name="Rules_PC" file="scripts/rules_pc.lua" />
+    <includefile source="campaign/record_char_skills.xml" />
+  </base>
+</root>
